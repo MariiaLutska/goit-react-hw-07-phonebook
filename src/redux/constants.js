@@ -1,5 +1,5 @@
-export const filterContacts = Object.freeze({
-  all: 'all',
-  active: 'active',
-  completed: 'completed',
-});
+// export const filterValue = Object.freeze({
+//   all: '',
+//   // active: 'active',
+//   // completed: 'completed',
+// });

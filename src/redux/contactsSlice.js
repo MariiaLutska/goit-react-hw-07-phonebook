@@ -1,16 +1,28 @@
+import { createSlice } from '@reduxjs/toolkit';
 import {
-  createSlice,
-  // nanoid
-} from '@reduxjs/toolkit';
+  fetchContacts,
+  addContact,
+  deleteContact,
+  toggleCompleted,
+} from './operations';
 
-const initialState = {
-  contacts: {
-    items: JSON.parse(window.localStorage.getItem('contacts')) ?? [],
-    filter: {
-      value: '',
-    },
-  },
+const handlePending = state => {
+  state.isLoading = true;
 };
+
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
+
+// const initialState = {
+//   contacts: {
+//     items: [],
+//     filter: {
+//       value: '',
+//     },
+//   },
+// };
 // [
 //   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
 //   { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
@@ -18,30 +30,51 @@ const initialState = {
 //   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
 // ];
 
-export const contactsSlice = createSlice({
+const contactsSlice = createSlice({
   name: 'contacts',
-  initialState,
-  reducers: {
-    setFilter: (state, action) => {
-      state.contacts.filter.value = action.payload;
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
+
+  extraReducers: {
+    [fetchContacts.pending]: handlePending,
+    [fetchContacts.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.items = action.payload;
     },
-    setContact: (state, action) => {
-      state.contacts.items.push(action.payload);
+    [fetchContacts.rejected]: handleRejected,
+    [addContact.pending]: handlePending,
+    [addContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.items.push(action.payload);
     },
-    removeContact: (state, action) => {
-      let indexId = state.contacts.items.findIndex(
-        el => el.id === action.payload
+    [addContact.rejected]: handleRejected,
+    [deleteContact.pending]: handlePending,
+    [deleteContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      // return state.items.filter(item => item.id !== action.payload.id);
+      const index = state.items.findIndex(
+        contact => contact.id === action.payload.id
       );
-
-      if (indexId === -1) {
-        return alert(`Item with ${action.id} not wound`);
-      }
-
-      state.contacts.items.splice(indexId, 1);
+      state.items.splice(index, 1);
     },
+    [deleteContact.rejected]: handleRejected,
+    [toggleCompleted.pending]: handlePending,
+    [toggleCompleted.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.items.findIndex(
+        contact => contact.id === action.payload.id
+      );
+      state.items.splice(index, 1, action.payload);
+    },
+    [toggleCompleted.rejected]: handleRejected,
   },
 });
 
-export const { setFilter, setContact, removeContact } = contactsSlice.actions;
-
-export default contactsSlice.reducer;
+export const contactsReducer = contactsSlice.reducer;

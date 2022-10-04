@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { filterContacts } from './constants';
+// import { filterValue } from './constants';
 
 const filtersInitialState = {
-  status: filterContacts.all,
+  status: '',
 };
 
 const filtersSlice = createSlice({
