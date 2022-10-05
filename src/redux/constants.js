@@ -1,5 +1,5 @@
 // export const filterValue = Object.freeze({
 //   all: '',
-//   // active: 'active',
-//   // completed: 'completed',
+//   //   // active: 'active',
+//   //   // completed: 'completed',
 // });
