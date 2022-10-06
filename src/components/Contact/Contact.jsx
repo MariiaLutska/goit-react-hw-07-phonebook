@@ -15,7 +15,7 @@ export const Contact = ({ contact }) => {
   // const handleToggle = () => dispatch(toggleCompleted(contact));
 
   return (
-    <Box color="primary" as="li">
+    <Box color="primary" as="li" display="block" alignItems="center">
       {/* <label type="value" onChange={handleToggle} /> */}
       {contact.name} : {contact.phone}
 

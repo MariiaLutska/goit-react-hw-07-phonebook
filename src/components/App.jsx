@@ -1,22 +1,24 @@
-import {
-  useSelector
-} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ContactForm } from "components/ContactForm/ContactForm";
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
 import { Box } from "./Box";
 import { Layout } from "./Layout/Layout";
-import {
-  selectError,
-  selectIsLoading
-} from "redux/selectors";
+import { useEffect } from "react";
+import { fetchContacts } from "../redux/operations";
+import { selectError, selectIsLoading } from "redux/selectors";
 
 export const App = () => {
+   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
   return (
-     <Box
+    <Box
       display="flex"
        flexDirection="column"
        justifyContent="center"
@@ -28,18 +30,13 @@ export const App = () => {
       {error && <p>{error}</p>}
       {/* <p>{items.length > 0 && JSON.stringify(items, null, 2)}</p> */}
       <Layout>
- <h1>Phonebook</h1>
-      <ContactForm />
-     
-      
-      <h2>Contacts</h2>
-      <Filter />
-       
-         {isLoading && !error && <b>Request in progress...</b>}
-       <ContactList />
+        <h1>Phonebook</h1>
+        <ContactForm />
+        <h2>Contacts</h2>
+        <Filter />
+        {isLoading && !error && <b>Request in progress...</b>}
+        <ContactList />
       </Layout>
-       
-   
     </Box>
   );
 };

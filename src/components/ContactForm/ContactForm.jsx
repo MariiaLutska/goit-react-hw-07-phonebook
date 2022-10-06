@@ -60,21 +60,19 @@ export const ContactForm = () => {
       <form onSubmit={handleSubmit}>
         <Box display="flex"
           flexDirection="column" >
-          <label
-            htmlFor={nameId}
-          >
+          <label htmlFor={nameId}>
             Name:
           </label>
           <input
-          onInput={handleInputChange}
-          value={name}
-          type="text"
+            onInput={handleInputChange}
+            value={name}
+            type="text"
             name="name"
             placeholder="Enter name..."
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-          id={nameId}
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+            id={nameId}
         />
           {/* <ErrorMessage name="name" component="div" /> */}
                 
@@ -84,15 +82,15 @@ export const ContactForm = () => {
             Number:
           </label>
          <input
-          onInput={handleInputChange}
-          value={phone}
-          type="tel"
+            onInput={handleInputChange}
+            value={phone}
+            type="tel"
             name="phone"
-             placeholder="Enter number..."
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-          id={numbId}
+            placeholder="Enter number..."
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+            id={numbId}
         />
           {/* <ErrorMessage name="number" component="div" /> */}
                 
